@@ -8,14 +8,9 @@
   stat: path={{ tomcat_home }}
   register: tomcat_installed
 
-# Download Tomcat package
-- name: Download Tomcat
-  get_url: url={{ tomcat_url }} dest={{ ansible_env.HOME }}
-  when: not tomcat_installed.stat.exists
-
 # Extracts Tomcat package to its home directory
-- name: Extract Tomcat package to {{ tomcat_home }}
-  unarchive: src={{ ansible_env.HOME }}/{{ tomcat_package }} dest=/opt copy=no owner=tomcat group=tomcat
+- name: Extract Tomcat tar.gz to {{ tomcat_home }}
+  unarchive: src={{ tomcat_package }} dest=/opt copy=yes owner=tomcat group=tomcat
   when: not tomcat_installed.stat.exists
 
 # Removes all default webapps 

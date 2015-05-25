@@ -1,7 +1,11 @@
 ---
-# Installs haproxy using yum
+# Copies haproxy rpm package from control machine to provisioned machine
+- name: Copy rpm to provisioned machine
+  copy: src={{ haproxy_rpm }} dest={{ ansible_env.HOME }}
+
+# Installs haproxy from local rpm using yum
 - name: Install haproxy
-  yum: name=haproxy state=present
+  yum: name={{ ansible_env.HOME }}/{{ haproxy_rpm }} state=present
 
 # Enables haproxy on startup
 - name: Enable haproxy on startup

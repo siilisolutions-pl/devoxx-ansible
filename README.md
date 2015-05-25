@@ -2,6 +2,8 @@
 
 This is a simple example prepared for presentation called "Ansible to rule them all" that will be given on Devoxx Poland 2015 conference. It illustrates basic usage of Ansible for provisioning simple environment and deploying Java applications.
 
+**This is offline version. Provisioning and deployment does not require Internet connection.**
+
 # Environment (machines)
 
 There are two host groups in the inventory of this example. We use Ansible to install Apache Tomcat servlet container on application servers (```appservers``` group) and deploy simple Java application build upon Spring Boot. Network traffic is routed and balanced using HAProxy software load balancer which is installed on load balancer server (```loadbalancer``` group).

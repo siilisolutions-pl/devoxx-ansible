@@ -8,22 +8,7 @@ There are two host groups in the inventory of this example. On application serve
 
 Below you can see simple schema of machines with IP addresses and TCP connections between them. We decided to have two application servers and one load balancer server.
 
-```preformated
-    ┌───────────────────┐                     ┌───────────────────┐
-    │ 10.10.2.20 (app1) │                     │ 10.10.2.21 (app2) │
-    └───────────────┬───┘                     └───┬───────────────┘
-                    │                             │
-                    │                             │
-                    └────────────┐   ┌────────────┘
-                                 │   │
-                                 │   │
-                          ┌──────┴───┴──────┐
-                          │ 10.10.1.10 (lb) │
-                          └────────┬────────┘
-                                   │
-                                   │
-                                http in
-```
+![High-level architecture view](https://github.com/siilisolutions-pl/devoxx-ansible/blob/master/architecture.png)
 
 # How to use it
 

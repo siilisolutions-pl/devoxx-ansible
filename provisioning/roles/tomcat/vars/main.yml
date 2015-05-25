@@ -1,0 +1,5 @@
+---
+# Tomcat tgz file name
+tomcat_package: 'apache-tomcat-{{ tomcat_version }}.tar.gz'
+# Tomcat package source url
+tomcat_url: 'http://www.eu.apache.org/dist/tomcat/tomcat-8/v{{ tomcat_version }}/bin/{{ tomcat_package }}'

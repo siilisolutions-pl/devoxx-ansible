@@ -1,0 +1,14 @@
+---
+# Playbook for environment provisioning
+# Provisions application servers with Tomcat web server
+- name: Provision appservers
+  hosts: appservers
+  roles:
+    - { role: tomcat, sudo: yes } # Depends on java role
+
+# Provisions loadbalancers with HAProxy software loadbalancer
+- name: Provision load balancers
+  hosts: loadbalancers
+  vars_files: [ '../vault.yml' ]
+  roles:
+    - { role: haproxy, sudo: yes }

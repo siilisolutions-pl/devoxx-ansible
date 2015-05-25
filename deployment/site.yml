@@ -1,0 +1,25 @@
+---
+# Playbook for rolling webapplication deployment on tomcat
+- name: Deploy Devoxx webapp
+  hosts: appservers
+  sudo: yes
+  serial: 1
+  vars:
+    app:
+      name: 'devoxx-sample'
+      version: '0.1'
+  # Detaches the appserver from loadbalancer before the redeployment is made
+  pre_tasks:
+    - name: Detach appserver from haproxy backend
+      haproxy: state=disabled host={{ inventory_hostname }} backend=appservers
+      delegate_to: '{{ item }}'
+      with_items: groups.loadbalancers
+  # Deploys {{ app.name }} application in {{ app.version }} version on tomcat server
+  roles:
+    - { role: tomcat-deploy }
+  # Attaches the appserver to loadbalancer after the redeployment is made
+  post_tasks:
+    - name: Attach appserver to haproxy backend
+      haproxy: state=enabled host={{ inventory_hostname }} backend=appservers
+      delegate_to: '{{ item }}'
+      with_items: groups.loadbalancers

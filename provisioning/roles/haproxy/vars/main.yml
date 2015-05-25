@@ -1,0 +1,11 @@
+---
+# haproxy rpm package name
+haproxy_rpm: 'haproxy-1.5.2-2.el6.x86_64.rpm'
+# haproxy binding port for external traffic
+haproxy_lb_port: 80
+# haproxy statistics site user name
+haproxy_stats_user: '{{ vaulted_haproxy_stats_user }}'
+# haproxy statistics site password
+haproxy_stats_password: '{{ vaulted_haproxy_stats_password }}'
+# haproxy statistics port
+haproxy_stats_port: 8080

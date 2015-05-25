@@ -1,0 +1,7 @@
+---
+# Deployment source file path
+deploy_source: '{{ app.name }}-{{ app.version }}.war'
+# Deployment target file path
+deploy_target: '{{ tomcat_home }}/webapps/ROOT.war'
+# Maximum number of seconds to wait for given port to be opened
+deploy_timeout: 10

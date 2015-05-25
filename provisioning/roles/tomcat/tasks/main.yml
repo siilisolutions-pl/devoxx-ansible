@@ -1,0 +1,36 @@
+---
+# Creates Tomcat user and group in the system
+- name: Create Tomcat user
+  user: name=tomcat createhome=no home={{ tomcat_home }} shell=/sbin/nologin state=present
+
+# Checks whether Tomcat home directory already exists
+- name: Check if Tomcat is already installed
+  stat: path={{ tomcat_home }}
+  register: tomcat_installed
+
+# Download Tomcat package
+- name: Download Tomcat
+  get_url: url={{ tomcat_url }} dest={{ ansible_env.HOME }}
+  when: not tomcat_installed.stat.exists
+
+# Extracts Tomcat package to its home directory
+- name: Extract Tomcat package to {{ tomcat_home }}
+  unarchive: src={{ ansible_env.HOME }}/{{ tomcat_package }} dest=/opt copy=no owner=tomcat group=tomcat
+  when: not tomcat_installed.stat.exists
+
+# Removes all default webapps 
+- name: Remove default {{ tomcat_home }}/webapps contents
+  command: rm -rf {{ tomcat_home }}/webapps
+  when: not tomcat_installed.stat.exists
+
+# Changes ownership of Tomcat home directory to tomcat user recursively
+- name: Change {{ tomcat_home }} directory owner and group to tomcat
+  file: path={{ tomcat_home }} state=directory owner=tomcat group=tomcat recurse=yes
+
+# Creates service script for Tomcat
+- name: Create Tomcat service script
+  template: src=tomcat-init.sh.j2 dest=/etc/init.d/tomcat owner=root group=root mode=0755
+
+# Starts Tomcat service and enables start on bootup
+- name: Start Tomcat
+  service: name=tomcat state=started enabled=yes pattern={{ tomcat_start_pattern }}

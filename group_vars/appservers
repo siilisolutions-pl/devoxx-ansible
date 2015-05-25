@@ -1,0 +1,16 @@
+#---------------------------------------------------------------------------------------------------------
+# Application settings
+#---------------------------------------------------------------------------------------------------------
+# Port on which web applications are served on appservers
+app_port: 8080
+
+#---------------------------------------------------------------------------------------------------------
+# Tomcat settings
+#---------------------------------------------------------------------------------------------------------
+# Tomcat home directory (also value of $CATALINA_HOME)
+tomcat_home: '/opt/apache-tomcat-{{ tomcat_version }}'
+# Since Ansible cannot correctly read Tomcat service script status, it will look  for following pattern in 
+# processes to ascertain if Tomcat is running.
+tomcat_start_pattern: '"org.apache.catalina.startup.Bootstrap start"'
+# Tomcat version
+tomcat_version: '8.0.22'

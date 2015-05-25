@@ -1,0 +1,18 @@
+---
+# Installs haproxy using yum
+- name: Install haproxy
+  yum: name=haproxy state=present
+
+# Enables haproxy on startup
+- name: Enable haproxy on startup
+  copy: src=default.cfg dest=/etc/default/haproxy
+  notify: reload haproxy
+
+# Copies haproxy configuration files
+- name: Configure haproxy instance
+  template: src=haproxy.cfg.j2 dest=/etc/haproxy/haproxy.cfg owner=root group=root mode=0644
+  notify: reload haproxy
+
+# Start haproxy service
+- name: Start haproxy
+  service: name=haproxy state=started enabled=yes

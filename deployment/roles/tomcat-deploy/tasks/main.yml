@@ -1,0 +1,24 @@
+---
+# Stops tomcat service
+- name: Stop tomcat
+  service: name=tomcat state=stopped pattern={{ tomcat_start_pattern }}
+
+# Removes old web application war
+- name: Remove previous version of the webapp
+  file: path={{ deploy_target }} state=absent
+
+# Copies new application {{ app.version }} to tomcat webapps directory
+- name: Copy new version of the webapp
+  copy: src={{ deploy_source }} dest={{ deploy_target }}
+
+# Starts tomcat service
+- name: Start tomcat
+  service: name=tomcat state=started pattern={{ tomcat_start_pattern }} enabled=yes
+
+# Waits until port {{ app_port }} is open on current host
+- name: Wait for tomcat start
+  wait_for: host={{ inventory_hostname }} port={{ app_port }} state=started timeout={{ deploy_timeout }}
+
+# Wait until application is started and ready for handling http requests
+- name: Wait for web application start
+  uri: url=http://{{ ansible_ssh_host }}:{{ app_port }}

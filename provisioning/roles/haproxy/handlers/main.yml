@@ -1,0 +1,4 @@
+---
+# Reload haproxy with new configuration
+- name: reload haproxy
+  service: name=haproxy state=reloaded

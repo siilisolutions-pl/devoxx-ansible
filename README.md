@@ -13,9 +13,9 @@ Below you can see schema of machines with IP addresses and TCP connections betwe
 # How to use it
 
 Required software:
-
- * Vagrant (https://www.vagrantup.com/) version 1.7.0 or [later][1] - requires any virtualization software (e.g. VirtualBox) 
- * Ansible (http://ansible.com/)
+>
+ * *Vagrant* (https://www.vagrantup.com/) **version 1.7.0 or later<sup>1</sup>** - requires any virtualization software (e.g. VirtualBox) 
+ * *Ansible* (http://ansible.com/)
 
 You can download latest version of Vagrant from its homepage. Ansible can be installed using system package manager or ```pip```.
 
@@ -57,4 +57,4 @@ We provide Java application in this example in two versions: ```0.1``` and ```0.
 
 - - -
 
-[1]: Since v.1.7.0  Vagrant has started generating separate SSH key for each machine making provisioning process more difficult. In prior version there was only a single key for all of the machines - ```~/.vagrant.d/insecure_private_key```. After v.1.7.0 each machine has its own key located in ```.vagrant/machines/<<machine name>>/virtualbox/private_key```. For further details see: [Using Vagrant and Ansible: Running Ansible Manually](http://docs.ansible.com/guide_vagrant.html#running-ansible-manually)
+**1**: Since v.1.7.0  Vagrant has started generating separate SSH key for each machine making provisioning process more difficult. In prior version there was only a single key for all of the machines - ```~/.vagrant.d/insecure_private_key```. After v.1.7.0 each machine has its own key located in ```.vagrant/machines/<<machine name>>/virtualbox/private_key```. For further details see: [Using Vagrant and Ansible: Running Ansible Manually](http://docs.ansible.com/guide_vagrant.html#running-ansible-manually)

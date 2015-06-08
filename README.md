@@ -15,7 +15,7 @@ Below you can see schema of machines with IP addresses and TCP connections betwe
 Required software:
 >
  * *Vagrant* (https://www.vagrantup.com/) **version 1.7.0 or later<sup>1</sup>** - requires any virtualization software (e.g. VirtualBox) 
- * *Ansible* (http://ansible.com/)
+ * *Ansible* (http://ansible.com/) **version 1.9 or later**
 
 You can download latest version of Vagrant from its homepage. Ansible can be installed using system package manager or ```pip```.
 
@@ -48,7 +48,7 @@ During the provisioning you will be prompted for Ansible Vault password, type: `
 
 To deploy simple Java application on application servers use this command:
 ```bash
-ansible-playbook -i deployment/site.yml -vv --ask-vault-pass
+ansible-playbook -i inventory deployment/site.yml -vv --ask-vault-pass
 ```
 
 Open your web browser, application is available at ```http://10.10.1.10/```.

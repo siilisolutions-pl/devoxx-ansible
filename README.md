@@ -1,6 +1,6 @@
 # Introduction
 
-This is a simple example prepared for presentation called "Ansible to rule them all" that will be given on Devoxx Poland 2015 conference. It illustrates basic usage of Ansible for provisioning simple environment and deploying Java applications.
+This is a simple example prepared for presentation called "Ansible to rule them all" that will be given on Devoxx Poland 2015 conference. It illustrates basic usage of Ansible for simple environment provisioning and Java applications deployment.
 
 # Environment (machines)
 
@@ -14,7 +14,7 @@ Below you can see schema of machines with IP addresses and TCP connections betwe
 
 Required software:
 
- * Vagrant (https://www.vagrantup.com/) - requires any virtualization software (e.g. VirtualBox) 
+ * Vagrant (https://www.vagrantup.com/) version 1.7.0 or [later][1] - requires any virtualization software (e.g. VirtualBox) 
  * Ansible (http://ansible.com/)
 
 You can download latest version of Vagrant from its homepage. Ansible can be installed using system package manager or ```pip```.
@@ -37,7 +37,7 @@ Starting machines for the first time might take few minutes, since Vagrant has t
 
 Provisioning is done by Ansible. On application servers Ansible scripts install and configure Oracle Java JRE and Tomcat. Load balancers are provisioned with HAProxy. Invoke this command to provision all machines:
 ```bash
-ansible-playbook -i inventory provisioning/site.yml --private-key=~/.vagrant.d/insecure_private_key -vv --ask-vault-pass
+ansible-playbook -i inventory provisioning/site.yml -vv --ask-vault-pass
 ```
 
 ### Ansible Vault
@@ -48,9 +48,13 @@ During the provisioning you will be prompted for Ansible Vault password, type: `
 
 To deploy simple Java application on application servers use this command:
 ```bash
-ansible-playbook -i deployment/site.yml --private-key=~/.vagrant.d/insecure_private_key -vv --ask-vault-pass
+ansible-playbook -i deployment/site.yml -vv --ask-vault-pass
 ```
 
 Open your web browser, application is available at ```http://10.10.1.10/```.
 
 We provide Java application in this example in two versions: ```0.1``` and ```0.2```. The command above will deploy ```0.1``` version. To deploy version ```0.2``` you need to edit ```deployment/site.yml``` file and change value of ```app.version``` variable. Change it to ```0.2``` and invoke deployment command one more time. You should see different content when refreshing page at ```http://10.10.1.10/```.
+
+- - -
+
+[1]: Since v.1.7.0  Vagrant has started generating separate SSH key for each machine making provisioning process more difficult. In prior version there was only a single key for all of the machines - ```~/.vagrant.d/insecure_private_key```. After v.1.7.0 each machine has its own key located in ```.vagrant/machines/<<machine name>>/virtualbox/private_key```. For further details see: [Using Vagrant and Ansible: Running Ansible Manually](http://docs.ansible.com/guide_vagrant.html#running-ansible-manually)

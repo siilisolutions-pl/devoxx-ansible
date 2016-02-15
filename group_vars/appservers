@@ -13,4 +13,4 @@ tomcat_home: '/opt/apache-tomcat-{{ tomcat_version }}'
 # processes to ascertain if Tomcat is running.
 tomcat_start_pattern: '"org.apache.catalina.startup.Bootstrap start"'
 # Tomcat version
-tomcat_version: '8.0.22'
+tomcat_version: '8.0.32'

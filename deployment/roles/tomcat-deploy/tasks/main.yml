@@ -22,3 +22,7 @@
 # Wait until application is started and ready for handling http requests
 - name: Wait for web application start
   uri: url=http://{{ ansible_ssh_host }}:{{ app_port }}
+  register: result
+  until: result['status']|default(0) == 200
+  retries: 10
+  delay: 10

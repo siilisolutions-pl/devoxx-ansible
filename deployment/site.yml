@@ -13,7 +13,7 @@
     - name: Detach appserver from haproxy backend
       haproxy: state=disabled host={{ inventory_hostname }} backend=appservers
       delegate_to: '{{ item }}'
-      with_items: groups.loadbalancers
+      with_inventory_hostnames: groups.loadbalancers
   # Deploys {{ app.name }} application in {{ app.version }} version on tomcat server
   roles:
     - { role: tomcat-deploy }
@@ -22,4 +22,4 @@
     - name: Attach appserver to haproxy backend
       haproxy: state=enabled host={{ inventory_hostname }} backend=appservers
       delegate_to: '{{ item }}'
-      with_items: groups.loadbalancers
+      with_inventory_hostnames: groups.loadbalancers
